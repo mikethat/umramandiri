@@ -15,4 +15,4 @@ function drawQ(){
 }
 drawQ();
 /* Animasi muncul saat di-scroll */
-if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});document.querySelectorAll(".item,.steps li,.res,.cmpwrap,details").forEach(function(x){x.classList.add("rv");io.observe(x)})}
+if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});document.querySelectorAll(".item,.steps li,.res,.cmpwrap,.tile,details").forEach(function(x){x.classList.add("rv");io.observe(x)})}

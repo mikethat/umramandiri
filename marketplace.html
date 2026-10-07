@@ -7,31 +7,32 @@
 <meta name="description" content="Pilih sendiri hotel Makkah dan Madinah, tiket pesawat, visa, transport, muthawwif, dan handling bandara. Semua harga dalam SAR dengan perkiraan total dalam Rupiah.">
 <meta property="og:title" content="Marketplace UmraMandiri">
 <meta property="og:image" content="logo.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237A1738'/%3E%3Ctext x='8' y='44' font-family='Arial' font-weight='800' font-size='32' fill='%23FFFFFF'%3EU%3C/text%3E%3Ctext x='29' y='44' font-family='Arial' font-weight='800' font-size='32' fill='%23D8C3A5'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#7A1738">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1C1C1C;--brand:#7A1738;--brand-d:#5E102B;--brand-l:#A52A52;--sand:#D8C3A5;--sand-deep:#9A7B4A;--bg:#F7F4F0;--card:#fff;--line:#E7E1DA;--line2:#BDB3A8;--mute:#6B6B6B}
+:root{--ink:#2b3033;--gold:#c89e50;--gold-d:#7a5a14;--bg:#f3f4f5;--card:#fff;--line:#dcdfe1;--mute:#5d666b}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 "Plus Jakarta Sans",system-ui,sans-serif;padding-bottom:84px}
 h1,h2,h3{margin:0;line-height:1.15;font-weight:800}
-:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 .top{background:#fff;border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:12px;padding-bottom:12px}
 .top img{height:34px;width:auto;display:block}
 .top a.home{margin-left:auto;margin-right:14px;font-size:14px;font-weight:700;text-decoration:none;color:var(--mute)}
-.top a.wa{font-size:14px;font-weight:700;text-decoration:none;color:var(--brand);border:1px solid var(--brand);padding:8px 14px;border-radius:999px}
-.hero{background:var(--brand);color:#fff;padding:44px 0 52px}
+.top a.wa{font-size:14px;font-weight:700;text-decoration:none;color:var(--ink);border:1px solid var(--ink);padding:8px 14px;border-radius:999px}
+.hero{background:var(--ink);color:#fff;padding:44px 0 52px}
 .hero h1{font-size:clamp(30px,5.5vw,50px);max-width:20ch}
-.hero p{font-size:18px;color:#F2E4E8;margin:16px 0 0;max-width:58ch}
-.note{background:#F3EBDD;border-bottom:1px solid var(--sand);color:#5a4a2e;font-size:14px;padding:10px 0}
+.hero p{font-size:18px;color:#d3d8db;margin:16px 0 0;max-width:58ch}
+.note{background:#f8efd9;border-bottom:1px solid #e6d3a1;color:#5c4510;font-size:14px;padding:10px 0}
 .tabs{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
 .tabs .wrap{display:flex;gap:8px;overflow-x:auto;padding:12px 20px}
 .chip{flex:none;border:1px solid var(--line);background:#fff;color:var(--ink);font:700 14px "Plus Jakarta Sans",sans-serif;padding:9px 16px;border-radius:999px;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
 section.cat{display:none;padding:28px 0 8px}
 section.cat.on{display:block}
 section.cat h2{font-size:28px}
@@ -40,32 +41,31 @@ section.cat h2{font-size:28px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px}
 .card h3{font-size:18px}
 .meta{color:var(--mute);font-size:14px;margin:0}
-.tag{display:inline-block;background:#F3EBDD;color:#5a4a2e;font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;align-self:flex-start}
+.tag{display:inline-block;background:#f8efd9;color:#5c4510;font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;align-self:flex-start}
 .price{margin-top:auto;padding-top:6px}
 .price b{font-size:24px;font-weight:800}
 .price small{color:var(--mute);font-size:13px}
-.btn{border:0;background:var(--brand);color:#fff;font:700 15px "Plus Jakarta Sans",sans-serif;padding:11px 16px;border-radius:10px;cursor:pointer;text-decoration:none;text-align:center}
-.btn:hover{background:var(--brand-d)}
+.btn{border:0;background:var(--ink);color:#fff;font:700 15px "Plus Jakarta Sans",sans-serif;padding:11px 16px;border-radius:10px;cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{background:#000}
 .btn:disabled{opacity:.4;cursor:not-allowed}
-.btn.primary{background:var(--brand);color:#fff}
+.btn.gold{background:var(--gold);color:#1d1f20}
 .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
 .panel label{font-size:13px;font-weight:700;color:var(--mute);display:flex;flex-direction:column;gap:4px}
-.panel input,.panel select{font:500 15px "Plus Jakarta Sans",sans-serif;padding:9px 10px;border:1px solid var(--line2);border-radius:8px;background:#fff;color:var(--ink);width:100%}
+.panel input,.panel select{font:500 15px "Plus Jakarta Sans",sans-serif;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);width:100%}
 .seg{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .hotel{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:center}
-.hotel .stars{color:var(--sand-deep);letter-spacing:1px;font-size:14px}
+.hotel .stars{color:var(--gold);letter-spacing:1px;font-size:14px}
 .hotel .r{text-align:right}
 .hotel .r b{font-size:22px;font-weight:800}
 .hotel .full{grid-column:1/-1}
-.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px #1c1c1c14;z-index:9}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px #2b303314;z-index:9}
 .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px}
 .bar strong{font-size:22px;font-weight:800;display:block;line-height:1.2}
 .bar span{font-size:13px;color:var(--mute);display:block}
 .bar .acts{display:flex;gap:8px;align-items:center}
-.btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
-.btn.ghost:hover{background:var(--bg)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--ink)}
 .btn[aria-disabled=true]{opacity:.4;pointer-events:none}
-#cart{display:none;position:fixed;left:0;right:0;bottom:70px;z-index:8;max-height:50vh;overflow:auto;background:#fff;border-top:1px solid var(--line);box-shadow:0 -10px 24px #1c1c1c22}
+#cart{display:none;position:fixed;left:0;right:0;bottom:70px;z-index:8;max-height:50vh;overflow:auto;background:#fff;border-top:1px solid var(--line);box-shadow:0 -10px 24px #2b303322}
 #cart.on{display:block}
 .line{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
 .line small{display:block;color:var(--mute)}
@@ -74,6 +74,20 @@ section.cat h2{font-size:28px}
 footer{padding:36px 0 12px;color:var(--mute);font-size:14px}
 @media(max-width:560px){.bar strong{font-size:18px}.bar .btn{padding:10px 12px;font-size:14px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ===== Palet brand UmraMandiri ===== */
+:root{--ink:#1C1C1C;--gold:#7A1738;--gold-d:#5E102B;--bg:#F7F4F0;--mute:#6B6B6B;--line:#e9e2d9}
+.top a.wa{color:#7A1738;border-color:#7A1738}
+.top strong{color:#7A1738;font-size:1.25rem;letter-spacing:-.02em}
+.hero{background:#7A1738}
+.hero p{color:rgba(255,255,255,.88)}
+.chip[aria-pressed=true]{background:#7A1738;border-color:#7A1738}
+.btn{background:#7A1738;border-radius:999px}.btn:hover{background:#5E102B}
+.btn.gold{background:#7A1738;color:#fff}
+.btn.ghost{background:#fff;color:#7A1738;border:1px solid #7A1738}.btn.ghost:hover{background:#F7F4F0}
+.note{background:#F7F4F0;border-color:#D8C3A5;color:#5E102B}
+.tag{background:#F7F4F0;color:#5E102B}
+.hotel .stars{color:#A52A52}
 </style>
 </head>
 <body>
@@ -96,7 +110,7 @@ footer{padding:36px 0 12px;color:var(--mute);font-size:14px}
 <div id="cart" aria-label="Rincian pilihan"><div class="wrap" id="lines"></div></div>
 <div class="bar" role="region" aria-label="Ringkasan pilihan"><div class="wrap">
   <div><span id="count">Belum ada pilihan</span><strong id="tSar">SAR 0</strong><span id="tIdr"></span></div>
-  <div class="acts"><button class="btn ghost" id="toggle">Rincian</button><a class="btn primary" id="order" aria-disabled="true" href="#" target="_blank" rel="noopener">Kirim via WhatsApp</a></div>
+  <div class="acts"><button class="btn ghost" id="toggle">Rincian</button><a class="btn gold" id="order" aria-disabled="true" href="#" target="_blank" rel="noopener">Kirim via WhatsApp</a></div>
 </div></div>
 
 <script>
