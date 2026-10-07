@@ -2,13 +2,13 @@
   /* ====== PENGATURAN: ubah angka di sini sesuai tarif dan kebijakan Anda ====== */
   var CFG = {
     WA: "6289624493600",
-    kurs: 4850,            // 1 SAR dalam Rupiah (perbarui berkala)
-    fee: 0,                // biaya layanan tambahan per kamar per malam (SAR), isi jika perlu
-    visa: 2400000,         // per jamaah (Rp)  -- CONTOH, ganti dengan tarif Anda
-    tiket: 12000000,       // per jamaah (Rp)  -- CONTOH, ganti dengan tarif Anda
-    handling: 600000,      // per jamaah (Rp)  -- CONTOH
-    transport: [0, 3500000, 5500000],  // tanpa / sedan / van (Rp per perjalanan) -- CONTOH
-    muthawif: 3000000      // per perjalanan (Rp) -- CONTOH
+    kurs: 4757,            // 1 SAR dalam Rupiah (samakan dengan marketplace)
+    fee: 20,               // tambahan per kamar per malam (SAR), sama dengan marketplace
+    visa: 155 * 3.75 * 4757,   // USD 155 x 3,75 SAR x kurs, per jamaah
+    tiket: 13000000,       // per jamaah, harga acuan
+    handling: 185 * 4757,  // per jamaah: kedatangan SAR 100 + kepulangan SAR 85
+    transport: [0, 2400 * 4757],            // tanpa / Hiace fulltrip (SAR 2400)
+    muthawif: [0, 150 * 4757, 300 * 4757]   // tanpa / setengah hari / full day
   };
   var $ = function (i) { return document.getElementById(i); };
   if (!$("n") || !window.HOTELS) return;
@@ -50,7 +50,7 @@
       ["Hotel Madinah, " + nm + " malam, " + rooms + " kamar", b.sar * CFG.kurs],
       ["Visa", CFG.visa * n], ["Tiket pesawat (perkiraan)", CFG.tiket * n],
       ["Handling bandara", CFG.handling * n], ["Transportasi", CFG.transport[+$("tr").value]],
-      ["Muthawif", CFG.muthawif * (+$("mt").value)]
+      ["Muthawif", CFG.muthawif[+$("mt").value]]
     ];
     var t = 0, h = "";
     L.forEach(function (l) { t += l[1]; h += "<tr><td>" + l[0] + "</td><td>" + rp(l[1]) + "</td></tr>"; });
