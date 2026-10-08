@@ -15,9 +15,9 @@
   function night(h, d, t) { var v = null; h.r.forEach(function (r) { if (d >= r.a && d <= r.b) v = r.p[t]; }); return v; }
   function stay(h, ci, n, t) { var tot = 0; for (var i = 0; i < n; i++) { var v = night(h, ci + i, t); if (v == null) return null; tot += v; } return tot; }
 
-  var S = { ad: 2, inf: 0, visa: true, dt: "2026-12-01", first: "Madinah", nmMakkah: 5, nmMadinah: 4,
+  var S = { ad: 2, inf: 0, visa: false, dt: "2026-12-01", first: "Madinah", nmMakkah: 5, nmMadinah: 4,
     type: { Makkah: 0, Madinah: 0 }, rooms: { Makkah: null, Madinah: null }, star: { Makkah: 0, Madinah: 0 }, q: { Makkah: "", Madinah: "" }, hot: { Makkah: null, Madinah: null },
-    trips: 1, tiket: true, tiketRp: TIKET_RP, half: 0, full: 0, hin: true, hout: true, kereta: false, lain: false }, cur = 0;
+    trips: 0, tiket: false, tiketRp: TIKET_RP, half: 0, full: 0, hin: false, hout: false, kereta: false, lain: false }, cur = 0;
   var LIM = { ad: [1, 20], inf: [0, 10], nmMakkah: [0, 30], nmMadinah: [0, 30], trips: [0, 10], half: [0, 20], full: [0, 20], roomsMakkah: [1, 20], roomsMadinah: [1, 20] };
 
   function startDay() { var s = S.dt.split("-"); return Date.UTC(+s[0], +s[1] - 1, +s[2]) / DAY; }
@@ -34,10 +34,9 @@
     var g = S.ad + S.inf, L = [], miss = [];
     if (S.visa) L.push(["Visa umroh (" + g + " jamaah)", VISA_SAR * g * RATE]);
     CITIES.forEach(function (c) {
-      var h = hotelOf(c), n = nights(c); if (!n) return;
-      var t = h ? stay(h, ci(c), n, S.type[c]) : 0;
-      if (!h) miss.push("Hotel " + c + " belum dipilih");
-      if (h && t == null) { miss.push("Tarif " + h.n + " belum tersedia untuk tanggal ini"); t = 0; }
+      var h = hotelOf(c), n = nights(c); if (!n || !h) return;
+      var t = stay(h, ci(c), n, S.type[c]);
+      if (t == null) { miss.push("Tarif " + h.n + " belum tersedia untuk tanggal ini"); t = 0; }
       L.push(["Hotel " + c + (h ? ": " + h.n : "") + " (" + n + " malam, " + roomsOf(c) + " kamar " + TYPES[S.type[c]] + ")", t * roomsOf(c) * RATE]);
     });
     if (S.trips) L.push(["Transportasi Hiace (" + S.trips + " trip)", TRANS_SAR * S.trips * RATE]);
@@ -48,6 +47,7 @@
     return { L: L, t: t, g: g, miss: miss };
   }
   function waLink(c) {
+    if (!c.L.length) return "https://wa.me/" + WA + "?text=" + encodeURIComponent("Assalamualaikum, saya ingin konsultasi estimasi umroh mandiri.");
     var t = "Assalamualaikum, saya ingin konsultasi estimasi umroh mandiri.\n\nJamaah: " + S.ad + " dewasa" + (S.inf ? ", " + S.inf + " infant" : "") +
       "\nTanggal tiba: " + fd(startDay()) + " (mulai dari " + S.first + ")\n\nRincian:\n" + c.L.map(function (l) { return "- " + l[0] + ": " + rp(l[1]); }).join("\n") +
       (S.kereta ? "\n- Add on: Kereta cepat Haramain (harga via konsultasi)" : "") + (S.lain ? "\n- Add on: kebutuhan lainnya (harga via konsultasi)" : "") +
@@ -99,6 +99,7 @@
   }
   function summary() {
     var c = calc();
+    if (!c.L.length) return '<div class="sumtop"><small>Total estimasi perjalanan</small><div class="big">Rp 0</div><small>Belum ada layanan yang dipilih</small></div><p class="tl">Pilih layanan di langkah sebelumnya, misalnya visa, hotel, atau transportasi. Estimasi akan muncul di sini.</p><div class="cta" style="margin-top:20px"><a class="btn ghost" href="' + waLink(c) + '">Tanya via WhatsApp</a></div>';
     return '<div class="sumtop"><small>Total estimasi perjalanan</small><div class="big">' + rp(c.t) + "</div><small>" + rp(c.t / c.g) + " per jamaah</small></div>" +
       '<table class="sumt"><tr><td>Komposisi</td><td>' + S.ad + " dewasa" + (S.inf ? ", " + S.inf + " infant" : "") + "</td></tr><tr><td>Total durasi</td><td>" + (S.nmMakkah + S.nmMadinah) + " malam (" + S.nmMakkah + " Makkah, " + S.nmMadinah + " Madinah)</td></tr>" +
       "<tr><td>Kamar</td><td>Makkah " + roomsOf("Makkah") + ", Madinah " + roomsOf("Madinah") + "</td></tr></table>" +
@@ -107,7 +108,7 @@
       '<div class="cta" style="margin-top:20px"><a class="btn" href="' + waLink(c) + '">Konsultasikan Estimasi</a><a class="btn ghost" href="marketplace.html">Pesan di Marketplace</a></div>';
   }
   /* ---- render ---- */
-  function upd() { var c = calc(); $("dt1").textContent = rp(c.t); $("dt2").textContent = rp(c.t / c.g) + " per jamaah"; $("dwa").href = waLink(c); }
+  function upd() { var c = calc(); $("dt1").textContent = rp(c.t); $("dt2").textContent = c.L.length ? rp(c.t / c.g) + " per jamaah" : "Pilih layanan untuk melihat estimasi"; $("dwa").href = waLink(c); }
   function render(scroll) {
     var s = STEPS[cur]; $("sn").textContent = "Langkah " + (cur + 1) + " dari " + STEPS.length; $("pg").style.width = ((cur + 1) / STEPS.length * 100) + "%";
     $("st").innerHTML = "<h2>" + s[0] + "</h2><p>" + s[1] + "</p>" + s[2]();

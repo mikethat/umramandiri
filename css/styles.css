@@ -216,3 +216,6 @@ input.q{margin-bottom:12px}
 .quiz{align-self:center;width:100%}
 .bp{background:linear-gradient(135deg,rgba(122,23,56,.94),rgba(94,16,43,.97)),url(../assets/img/kabah-sudut.jpg) center/cover}
 @media(max-width:860px){.qz{grid-template-columns:1fr}.qimg{min-height:260px}}
+
+/* Teks di bawah judul hero halaman dalam (kalkulator, ebook) */
+.hero-sec.slim p{color:rgba(255,255,255,.9);font-size:1.1rem;max-width:56ch}
