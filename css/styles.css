@@ -219,3 +219,23 @@ input.q{margin-bottom:12px}
 
 /* Teks di bawah judul hero halaman dalam (kalkulator, ebook) */
 .hero-sec.slim p{color:rgba(255,255,255,.9);font-size:1.1rem;max-width:56ch}
+
+/* Ponsel: tabel perbandingan menggulir ke samping tanpa melebarkan halaman */
+body{overflow-x:clip}
+.about>*,.qz>*,.calc>*,.learn>*,.h2g>*{min-width:0}
+.cmpwrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.swipe{display:none;margin:10px 0 0;font-size:.8rem;font-weight:600;color:var(--p)}
+@media(max-width:860px){.h2g,.about,.qz,.calc,.learn{grid-template-columns:minmax(0,1fr)}.swipe{display:block}.cmp{min-width:520px}}
+
+/* Header ponsel: logo dan menu muat dalam satu baris */
+@media(max-width:560px){
+header .wrap{padding:0 14px}
+.logo{font-size:1.05rem;gap:6px}.lg{height:28px}
+nav{gap:8px}
+nav a.navm{padding:6px 10px;font-size:.8rem}
+nav .btn{padding:8px 14px;font-size:.82rem}
+}
+@media(max-width:380px){.logo{font-size:.98rem}nav a.navm{padding:6px 8px;font-size:.76rem}nav .btn{padding:7px 11px;font-size:.78rem}}
+
+/* layar 340px ke bawah: tampilkan logo tanpa tulisan agar menu muat */
+@media(max-width:340px){.logo span{display:none}}
