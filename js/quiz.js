@@ -15,7 +15,7 @@ function drawQ(){
 }
 drawQ();
 /* Animasi muncul saat di-scroll */
-if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});document.querySelectorAll(".item,.steps li,.res,.cmpwrap,.tile,details").forEach(function(x){x.classList.add("rv");io.observe(x)})}
+if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});document.querySelectorAll(".item,.steps li,.res,.cmpwrap,.tile,details,.cr,.phs,.tick").forEach(function(x){x.classList.add("rv");io.observe(x)})}
 
 /* Harga acuan di kartu layanan dibaca dari data/data.js */
 if(window.PRICE){var P=window.PRICE,T={tiket:"Harga acuan sekitar Rp"+Math.round(P.tiketRp/1e6)+" juta",visa:"Harga acuan USD "+P.visaUsd,hiace:"Hiace SAR "+P.hiace.toLocaleString("id-ID")+" per trip",mt:"Mulai SAR "+P.mtHalf+" per sesi",hand:"Mulai SAR "+Math.min(P.hin,P.hout)+" per orang"};document.querySelectorAll("[data-p]").forEach(function(e){if(T[e.dataset.p])e.textContent=T[e.dataset.p]})}
