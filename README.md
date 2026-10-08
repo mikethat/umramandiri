@@ -8,8 +8,8 @@ Website statis (HTML, CSS, JavaScript) tanpa proses build. Siap di-deploy ke Git
 - `marketplace.html` halaman pemesanan layanan (tambahkan `logo.png` di folder utama; jika belum ada, tampil teks nama)
 - `css/styles.css` tampilan
 - `js/quiz.js` Peta Kesiapan Umroh dan animasi
-- `js/calculator.js` kalkulator biaya, pengaturan tarif ada di bagian `CFG` paling atas
-- `data/hotels.js` tarif hotel 1448H (SAR per kamar per malam, fullboard)
+- `kalkulator.html` kalkulator budget bertahap (10 langkah), logikanya di `js/kalkulator.js`
+- `data/data.js` SATU SUMBER DATA: kurs, harga non-hotel, dan tarif hotel 1448H. Dipakai oleh marketplace, kalkulator, dan beranda
 - `vercel.json`, `favicon.svg`
 
 ## Deploy
@@ -19,7 +19,8 @@ Website statis (HTML, CSS, JavaScript) tanpa proses build. Siap di-deploy ke Git
 4. Domain sendiri: Project Settings > Domains.
 
 ## Yang perlu diperbarui rutin
-- `CFG.kurs` di `js/calculator.js` (kurs 1 SAR ke Rupiah).
-- `CFG.visa`, `tiket`, `handling`, `transport`, `muthawif` (saat ini angka contoh).
-- `CFG.fee` jika ingin menambahkan biaya layanan per kamar per malam (SAR).
-- Menambah hotel: salin satu blok di `data/hotels.js`. Tanggal ditulis YYMMDD, akhir periode tidak termasuk.
+Semua angka ada di satu file: `data/data.js`.
+- Kurs: `RATE` dan `RATE_DATE`.
+- Harga non-hotel: objek `PRICE` (tiket, visa, Hiace, muthawwif, handling).
+- Tarif hotel: blok `HOTELS`. Format `Nama|bintang|ddmm-ddmm:double/triple/quad;...`. Menambah hotel: salin satu baris.
+- Nomor WhatsApp: `WA` (nomor di tautan tombol pada file HTML dan di `js/lead.js` masih perlu diganti manual).
