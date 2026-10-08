@@ -4,6 +4,7 @@ Website statis (HTML, CSS, JavaScript) tanpa proses build. Siap di-deploy ke Git
 
 ## Struktur
 - `index.html` halaman utama
+- `ebook.html` halaman ebook (lead magnet gratis dan daftar tunggu ebook berbayar); formulir diatur di `js/lead.js`
 - `marketplace.html` halaman pemesanan layanan (tambahkan `logo.png` di folder utama; jika belum ada, tampil teks nama)
 - `css/styles.css` tampilan
 - `js/quiz.js` Peta Kesiapan Umroh dan animasi

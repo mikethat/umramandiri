@@ -82,3 +82,23 @@ footer p{color:#d9b8c4;font-size:.84rem;max-width:46ch}
 .rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
 @media(max-width:860px){.hero,.calc,.about{grid-template-columns:1fr}.tiles .wrap{grid-template-columns:1fr}.fg{grid-template-columns:1fr 1fr}nav a:not(.btn):not(.navm){display:none}nav{gap:12px}section{padding:56px 0}.res{position:static}.hero-sec{padding:48px 0 104px}.two{grid-template-columns:1fr}.fab{padding:12px 16px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* ===== Perbaikan kuis, bagian konsep, lead magnet ===== */
+.hero .quiz p{color:var(--mute);font-size:1rem;max-width:none}
+.hero .quiz p.q{color:var(--ink);font-size:1.2rem}
+.dark{background:var(--pd);color:#fff}.dark p{color:rgba(255,255,255,.82)}
+.promise{font-weight:800;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15;max-width:22ch;letter-spacing:-.02em;margin-bottom:34px}
+.dark .promise{color:#fff}
+.dark .item{border-top:2px solid var(--sand);padding-top:16px}.dark h3{color:#fff}
+#cara .steps li{background:var(--off);border-color:transparent}
+.learn{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;margin-top:34px}
+.learn .lead{grid-row:span 2}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px}
+.card .btn{align-self:flex-start}
+.lead-form{display:grid;gap:12px;margin-top:6px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-weight:500;line-height:1.4}.chk input{width:auto;margin-top:3px}
+.err{color:var(--pl);font-size:.85rem;margin:0;min-height:1.2em}
+.more{display:inline-block;margin-top:14px;color:var(--p);font-weight:700;text-decoration:none;font-size:.9rem}
+.slim{padding:64px 0}
+.ul{margin:0 0 18px;padding-left:1.1em;color:var(--mute)}.ul li{margin:6px 0}
+@media(max-width:860px){.learn{grid-template-columns:1fr}.learn .lead{grid-row:auto}}
