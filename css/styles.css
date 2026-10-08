@@ -210,7 +210,6 @@ input.q{margin-bottom:12px}
 /* ===== Logo, foto, kuis mandiri ===== */
 .logo{display:inline-flex;align-items:center;gap:9px}.lg{height:34px;width:auto}
 .av img{width:22px;height:auto}.avs img{width:26px;height:auto}
-.phimg{height:170px;background:url(../assets/img/madinah-nabawi.jpg) center 60%/cover}
 .qz{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
 .qimg{background:linear-gradient(180deg,rgba(94,16,43,.25),rgba(94,16,43,.92)),url(../assets/img/kabah-tawaf.jpg) center/cover;border-radius:22px;min-height:400px;display:flex;align-items:flex-end;padding:32px;color:#fff}
 .qimg h2{color:#fff}.qimg p{color:rgba(255,255,255,.88);margin:0}
