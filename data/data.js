@@ -70,3 +70,32 @@ Madinah:[
 "Mukhtara Gharbi|3|0109-2009:420/460/500;2009-2110:480/520/560;2110-2111:540/580/620;2111-1712:580/620/660;1712-0901:720/760/800;0901-0802:640/680/720",
 "Jawharat Rasheed|3|0109-3009:470/515/560;0110-3110:500/545/590;0111-3011:550/595/640;0112-3112:620/665/710"]
 };
+
+// ===== TRANSPORT (SAR per kendaraan; urutan harga: Camry/Sonata, Staria, GMC, Hiace, Coaster) =====
+var TRANSPORT = {
+  v: [
+    { id: "camry",   n: "Sonata / Camry",   tag: "Sedan",   lab: "Privat, hemat",       cap: "1 - 4 jamaah",   img: "assets/img/transport/camry.png",   chips: ["Full AC", "Privat", "Hemat"] },
+    { id: "staria",  n: "Hyundai Staria",   tag: "Van",     lab: "Keluarga",            cap: "7 - 9 jamaah",   img: "assets/img/transport/staria.png",  chips: ["Full AC", "Pintu geser", "Keluarga"] },
+    { id: "gmc",     n: "GMC (2023)",       tag: "SUV",     lab: "Premium",             cap: "6 - 7 jamaah",   img: "assets/img/transport/gmc.png",     chips: ["Full AC", "Premium", "Kabin lega"] },
+    { id: "hiace",   n: "Toyota Hiace (2023)", tag: "Hiace", lab: "Rombongan kecil",    cap: "10 - 14 jamaah", img: "assets/img/transport/hiace.png",   chips: ["Full AC", "Kabin lega", "Bagasi"] },
+    { id: "coaster", n: "Coaster (2024)",   tag: "Coaster", lab: "Rombongan sedang",    cap: "18 - 25 jamaah", img: "assets/img/transport/coaster.png", chips: ["Full AC", "Kursi grup", "Bagasi luas"] }
+  ],
+  r: [
+    { id: "r1", n: "Bandara Jeddah ke Hotel Makkah",   p: [300, 400, 500, 450, 600] },
+    { id: "r2", n: "Hotel Makkah ke Hotel Madinah",    p: [550, 650, 1050, 750, 1000] },
+    { id: "r3", n: "Hotel Madinah ke Bandara Madinah", p: [250, 280, 400, 300, 450] },
+    { id: "r4", n: "Hotel Madinah ke Hotel Makkah",    p: [550, 650, 1050, 750, 1000] },
+    { id: "r5", n: "Hotel Makkah ke Bandara Jeddah",   p: [300, 400, 500, 450, 600] },
+    { id: "r6", n: "Ziarah Makkah",                    p: [300, 400, 500, 450, 500] },
+    { id: "r7", n: "Ziarah Madinah",                   p: [300, 400, 500, 400, 450] },
+    { id: "r8", n: "Bandara Jeddah ke Hotel Madinah",  p: [550, 650, 1050, 750, 1000] }
+  ],
+  ft: [
+    { id: "f1", n: "Full trip, Makkah dulu", r: ["r1", "r6", "r2", "r7", "r3"],
+      d: "Bandara Jeddah ke Hotel Makkah, ziarah Makkah, Hotel Makkah ke Hotel Madinah, ziarah Madinah, lalu Hotel Madinah ke Bandara Madinah." },
+    { id: "f2", n: "Full trip, Madinah dulu", r: ["r8", "r7", "r4", "r6", "r5"],
+      d: "Bandara Jeddah ke Hotel Madinah, ziarah Madinah, Hotel Madinah ke Hotel Makkah, ziarah Makkah, lalu Hotel Makkah ke Bandara Jeddah." }
+  ]
+};
+// Hiace full trip (Makkah dulu), dipakai kalkulator sebagai acuan transportasi
+PRICE.hiace = TRANSPORT.ft[0].r.reduce(function (s, id) { return s + TRANSPORT.r.filter(function (x) { return x.id === id; })[0].p[3]; }, 0);

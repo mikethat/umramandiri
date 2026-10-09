@@ -94,6 +94,31 @@ footer{padding:36px 0 12px;color:var(--mute);font-size:14px}
 @media(max-width:480px){.top strong{font-size:1.02rem}.top img{height:28px}.top a.home{margin-right:8px;font-size:13px}.top a.wa{padding:7px 10px;font-size:13px}}
 /* layar 340 marketplace */
 @media(max-width:340px){.top a.home{display:none}}
+
+/* ===== Kartu transport dengan gambar ===== */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.card.veh{padding:0;overflow:hidden;display:flex;flex-direction:column;gap:0}
+.vimg{position:relative;height:160px;background:radial-gradient(ellipse at 50% 90%,#f1e4e9 0,#fff 72%);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line)}
+.vimg img{max-height:118px;max-width:80%;object-fit:contain;filter:drop-shadow(0 10px 8px rgba(94,16,43,.2))}
+.vtag{position:absolute;top:12px;left:12px;background:#7A1738;color:#fff;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px}
+.vcap{position:absolute;left:12px;bottom:12px;background:#fff;border:1px solid var(--line);font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:999px}
+.vbody{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.vbody h3{margin:0}.vlab{color:#7A1738;font-weight:700;font-size:.74rem}
+.chips2{display:flex;flex-wrap:wrap;gap:6px}.chips2 span{background:#F7F4F0;color:#5E102B;font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:6px}
+.vbody label{display:grid;gap:5px;font-size:.78rem;font-weight:600;color:var(--mute)}.vbody select{width:100%}
+.vd{font-size:.8rem;min-height:3.4em;margin:0}
+.vfoot{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:auto}
+
+/* Penyempurnaan kartu transport */
+.vimg{overflow:hidden}
+.vimg:after{content:"";position:absolute;bottom:30px;left:50%;transform:translateX(-50%);width:58%;height:16px;border-radius:50%;background:rgba(94,16,43,.16);filter:blur(7px)}
+.vimg img{position:relative;z-index:1;mix-blend-mode:multiply;filter:none;max-height:124px}
+.vtag,.vcap{z-index:2}
+.vfoot>div{flex:1;min-width:0}.vfoot small{font-size:.74rem}
+.vfoot .btn{flex:none;white-space:nowrap;padding:11px 16px}
+.vd{font-size:.78rem}
+/* Harga di atas, tombol selebar kartu */
+.vfoot{flex-direction:column;align-items:stretch;gap:12px}.vfoot .btn{width:100%;text-align:center}.vfoot .price b{font-size:1.45rem;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -127,14 +152,13 @@ var CATS=[
  {id:"hotel",n:"Hotel",d:"Harga per kamar per malam, sudah termasuk makan 3 kali sehari (fullboard)."},
  {id:"pesawat",n:"Tiket pesawat",d:"Harga acuan tiket pulang-pergi."},
  {id:"visa",n:"Visa",d:"Pengurusan visa umroh."},
- {id:"transport",n:"Transport",d:"Sementara tersedia per trip."},
+ {id:"transport",n:"Transport",d:"Harga per kendaraan, dalam SAR. Pilih rute satuan atau paket full trip."},
  {id:"muthawwif",n:"Muthawwif",d:"Pembimbing ibadah."},
  {id:"handling",n:"Handling bandara",d:"Dibantu dari mendarat sampai keluar bandara."}
 ];
 var ITEMS=[
  {id:"a1",c:"pesawat",n:"Tiket pesawat pulang-pergi",m:"Harga acuan Rp "+PRICE.tiketRp.toLocaleString("id-ID")+", dikonversi ke SAR sesuai kurs",u:"/ orang",p:Math.round(PRICE.tiketRp/RATE)},
  {id:"v1",c:"visa",n:"Visa umroh",m:"Harga acuan USD "+PRICE.visaUsd+", dikonversi ke SAR (1 USD = "+String(USD_SAR).replace(".",",")+" SAR)",u:"/ orang",p:Math.round(PRICE.visaUsd*USD_SAR)},
- {id:"t1",c:"transport",n:"Hiace fulltrip",m:"Mobil Hiace, satu trip penuh",u:"/ trip",p:PRICE.hiace},
  {id:"m1",c:"muthawwif",n:"Muthawwif setengah hari",m:"Thawaf dan sa'i didampingi",u:"/ sesi",p:PRICE.mtHalf,ph:1},
  {id:"m2",c:"muthawwif",n:"Muthawwif full day",m:"Ibadah plus ziarah kota",u:"/ hari",p:PRICE.mtFull,ph:1},
  {id:"g1",c:"handling",n:"Handling kedatangan Jeddah",m:"Imigrasi dan bagasi dibantu",u:"/ orang",p:PRICE.hin,ph:1},
@@ -198,6 +222,7 @@ CATS.forEach(function(c){
 
 // ---- Non-hotel ----
 CATS.slice(1).forEach(function(c){
+  if(c.id==="transport")return;
   var g=el("div","grid");$("body-"+c.id).appendChild(g);
   ITEMS.filter(function(x){return x.c===c.id}).forEach(function(x){
     var d=el("article","card");
@@ -206,6 +231,29 @@ CATS.slice(1).forEach(function(c){
     d.appendChild(a);g.appendChild(d);
   });
 });
+
+// ---- Transport ----
+(function(){
+  var T=TRANSPORT,g=el("div","vgrid");$("body-transport").appendChild(g);
+  var rt=function(id){return T.r.filter(function(r){return r.id===id})[0]};
+  var sum=function(f,vi){return f.r.reduce(function(s,id){return s+rt(id).p[vi]},0)};
+  T.v.forEach(function(v,vi){
+    var c=el("article","card veh");
+    var opt='<optgroup label="Full trip (satu paket rute)">'+T.ft.map(function(f){return '<option value="ft:'+f.id+'">'+f.n+' ('+fmt(sum(f,vi))+')</option>'}).join("")+'</optgroup><optgroup label="Per rute">'+T.r.map(function(r){return '<option value="r:'+r.id+'">'+r.n+' ('+fmt(r.p[vi])+')</option>'}).join("")+'</optgroup>';
+    c.innerHTML='<div class="vimg"><span class="vtag">'+v.tag+'</span><img src="'+v.img+'" alt="'+v.n+'" loading="lazy"><span class="vcap">'+v.cap+'</span></div>'+
+     '<div class="vbody"><small class="vlab">'+v.lab+'</small><h3>'+v.n+'</h3><div class="chips2">'+v.chips.map(function(x){return '<span>'+x+'</span>'}).join("")+'</div>'+
+     '<label>Pilih rute atau full trip<select>'+opt+'</select></label><p class="meta vd"></p>'+
+     '<div class="vfoot"><div><small class="meta">Harga per kendaraan</small><div class="price"><b class="vp"></b></div><small class="meta vr"></small></div></div></div>';
+    var sel=c.querySelector("select"),vp=c.querySelector(".vp"),vr=c.querySelector(".vr"),vd=c.querySelector(".vd"),cur;
+    function upd(){var s=sel.value.split(":"),f=s[0]==="ft"?T.ft.filter(function(x){return x.id===s[1]})[0]:null,r=f?null:rt(s[1]);
+      cur={name:f?f.n:r.n,p:f?sum(f,vi):r.p[vi],full:!!f};
+      vp.textContent=fmt(cur.p);vr.textContent="\u2248 "+rp(cur.p*RATE);
+      vd.textContent=f?f.d:"Sekali jalan, per kendaraan."}
+    var a=el("button","btn","Tambah ke pilihan");
+    a.onclick=function(){addLine("tr|"+v.id+"|"+sel.value,v.n+": "+cur.name,cur.full?"per kendaraan, ziarah termasuk":"per kendaraan",cur.p)};
+    c.querySelector(".vfoot").appendChild(a);sel.onchange=upd;upd();g.appendChild(c);
+  });
+})();
 
 // ---- Pilihan & total ----
 function addLine(k,n,note,p){if(cart[k])cart[k].q++;else cart[k]={n:n,note:note,p:p,q:1};render()}
