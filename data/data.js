@@ -10,7 +10,6 @@ var PRICE = {
   tiketRp: 13000000,                 // tiket pesawat per dewasa (Rp)
   infantFactor: 0.1,                 // tiket infant = 10% tarif dewasa
   visaUsd: 155,                      // visa per jamaah (USD)
-  hiace: 2400,                       // Hiace fulltrip per trip (SAR)
   mtHalf: 150, mtFull: 300,          // muthawwif setengah hari per sesi / full day per hari (SAR)
   hin: 100, hout: 85                 // handling kedatangan / kepulangan per orang (SAR)
 };
@@ -97,5 +96,3 @@ var TRANSPORT = {
       d: "Bandara Jeddah ke Hotel Madinah, ziarah Madinah, Hotel Madinah ke Hotel Makkah, ziarah Makkah, lalu Hotel Makkah ke Bandara Jeddah." }
   ]
 };
-// Hiace full trip (Makkah dulu), dipakai kalkulator sebagai acuan transportasi
-PRICE.hiace = TRANSPORT.ft[0].r.reduce(function (s, id) { return s + TRANSPORT.r.filter(function (x) { return x.id === id; })[0].p[3]; }, 0);

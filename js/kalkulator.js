@@ -3,7 +3,7 @@
   var WA = window.WA, RATE = window.RATE, RATE_DATE = window.RATE_DATE, DAY = 864e5, P = window.PRICE;
   var VISA_SAR = Math.round(P.visaUsd * window.USD_SAR);
   var TIKET_RP = P.tiketRp, INF_FACTOR = P.infantFactor;
-  var TRANS_SAR = P.hiace, MT_HALF = P.mtHalf, MT_FULL = P.mtFull, HIN = P.hin, HOUT = P.hout;
+  var MT_HALF = P.mtHalf, MT_FULL = P.mtFull, HIN = P.hin, HOUT = P.hout;
   var OCC = [2, 3, 4], TYPES = ["Double", "Triple", "Quad"], CITIES = ["Makkah", "Madinah"];
   var $ = function (i) { return document.getElementById(i); };
   var rp = function (n) { return "Rp " + Math.round(n).toLocaleString("id-ID"); };
@@ -15,10 +15,17 @@
   function night(h, d, t) { var v = null; h.r.forEach(function (r) { if (d >= r.a && d <= r.b) v = r.p[t]; }); return v; }
   function stay(h, ci, n, t) { var tot = 0; for (var i = 0; i < n; i++) { var v = night(h, ci + i, t); if (v == null) return null; tot += v; } return tot; }
 
+  function initTr() { var o = {}; TRANSPORT.v.forEach(function (v) { o[v.id] = { sel: "ft:f1", q: 0 }; }); return o; }
+  function trRoute(id) { return TRANSPORT.r.filter(function (r) { return r.id === id; })[0]; }
+  function trPrice(vi, sel) {
+    var s = sel.split(":");
+    if (s[0] === "ft") { var f = TRANSPORT.ft.filter(function (x) { return x.id === s[1]; })[0]; return { name: f.n, p: f.r.reduce(function (a, id) { return a + trRoute(id).p[vi]; }, 0) }; }
+    var r = trRoute(s[1]); return { name: r.n, p: r.p[vi] };
+  }
   var S = { ad: 2, inf: 0, visa: false, dt: "2026-12-01", first: "Madinah", nmMakkah: 5, nmMadinah: 4,
     type: { Makkah: 0, Madinah: 0 }, rooms: { Makkah: null, Madinah: null }, star: { Makkah: 0, Madinah: 0 }, q: { Makkah: "", Madinah: "" }, hot: { Makkah: null, Madinah: null },
-    trips: 0, tiket: false, tiketRp: TIKET_RP, half: 0, full: 0, hin: false, hout: false, kereta: false, lain: false }, cur = 0;
-  var LIM = { ad: [1, 20], inf: [0, 10], nmMakkah: [0, 30], nmMadinah: [0, 30], trips: [0, 10], half: [0, 20], full: [0, 20], roomsMakkah: [1, 20], roomsMadinah: [1, 20] };
+    tr: initTr(), tiket: false, tiketRp: TIKET_RP, half: 0, full: 0, hin: false, hout: false, kereta: false, lain: false }, cur = 0;
+  var LIM = { ad: [1, 20], inf: [0, 10], nmMakkah: [0, 30], nmMadinah: [0, 30], half: [0, 20], full: [0, 20], roomsMakkah: [1, 20], roomsMadinah: [1, 20] };
 
   function startDay() { var s = S.dt.split("-"); return Date.UTC(+s[0], +s[1] - 1, +s[2]) / DAY; }
   function ci(c) { return c === S.first ? startDay() : startDay() + S["nm" + S.first]; }
@@ -26,6 +33,7 @@
   function roomsOf(c) { return S.rooms[c] != null ? S.rooms[c] : Math.max(1, Math.ceil(S.ad / OCC[S.type[c]])); }
   function hotelOf(c) { return DB[c].filter(function (h) { return h.n === S.hot[c]; })[0] || null; }
   function bump(k, d) {
+    if (k.indexOf("trq_") === 0) { var tv = S.tr[k.slice(4)]; tv.q = Math.max(0, Math.min(10, tv.q + d)); return; }
     var l = LIM[k], m = k.indexOf("rooms") === 0 ? k.slice(5) : null, v = (m ? roomsOf(m) : S[k]) + d;
     v = Math.max(l[0], Math.min(l[1], v)); if (m) S.rooms[m] = v; else S[k] = v;
     if (k === "ad") S.rooms.Makkah = S.rooms.Madinah = null;
@@ -39,7 +47,7 @@
       if (t == null) { miss.push("Tarif " + h.n + " belum tersedia untuk tanggal ini"); t = 0; }
       L.push(["Hotel " + c + (h ? ": " + h.n : "") + " (" + n + " malam, " + roomsOf(c) + " kamar " + TYPES[S.type[c]] + ")", t * roomsOf(c) * RATE]);
     });
-    if (S.trips) L.push(["Transportasi Hiace (" + S.trips + " trip)", TRANS_SAR * S.trips * RATE]);
+    TRANSPORT.v.forEach(function (v, vi) { var t = S.tr[v.id]; if (!t.q) return; var o = trPrice(vi, t.sel); L.push(["Transportasi " + v.n + ": " + o.name + " (" + t.q + " kendaraan)", o.p * t.q * RATE]); });
     if (S.tiket) L.push(["Tiket pesawat (estimasi)", S.tiketRp * (S.ad + S.inf * INF_FACTOR)]);
     var mt = S.half * MT_HALF + S.full * MT_FULL; if (mt) L.push(["Muthawwif (" + S.half + " sesi, " + S.full + " hari)", mt * RATE]);
     var hd = (S.hin ? HIN : 0) + (S.hout ? HOUT : 0); if (hd) L.push(["Handling bandara", hd * g * RATE]);
@@ -70,8 +78,7 @@
         '<p class="tl">' + f + ": " + fd(ci(f)) + " sampai " + fd(ci(f) + nights(f)) + "<br>" + o + ": " + fd(ci(o)) + " sampai " + fd(ci(o) + nights(o)) + "</p>"; }],
     ["Hotel Makkah", "Pilih hotel, tipe kamar, dan jumlah kamar. Tarif sudah termasuk makan 3 kali sehari.", function () { return hotelStep("Makkah"); }],
     ["Hotel Madinah", "Pilih hotel, tipe kamar, dan jumlah kamar. Tarif sudah termasuk makan 3 kali sehari.", function () { return hotelStep("Madinah"); }],
-    ["Transportasi", "Harga transportasi masuk ke estimasi total.", function () {
-      return row("Hiace fulltrip", sar(TRANS_SAR) + " per trip, satu trip penuh", stp("trips", S.trips)); }],
+    ["Transportasi", "Pilih kendaraan, rute atau full trip, lalu jumlah kendaraan. Harga per kendaraan, dalam SAR.", stTr],
     ["Tiket Pesawat", "Tambahkan estimasi tiket per jamaah, atau biarkan belum termasuk bila akan dikonfirmasi terpisah.", function () {
       return chk("tiket", "Sertakan estimasi tiket pesawat") + (S.tiket ? '<label>Estimasi per dewasa (Rp)<input type="number" data-k="tiketRp" min="0" step="100000" value="' + S.tiketRp + '"></label><p class="tl">Harga acuan ' + rp(TIKET_RP) + ' per orang. Infant dihitung ' + Math.round(INF_FACTOR * 100) + '% dari tarif dewasa.</p>' : '<p class="tl">Tiket belum termasuk dalam estimasi.</p>'); }],
     ["Muthawwif", "Pilih apakah perjalanan membutuhkan pendamping ibadah.", function () {
@@ -81,6 +88,14 @@
         '<p class="tl">Add on opsional, harga diberikan saat konsultasi:</p>' + chk("kereta", "Kereta cepat Haramain") + chk("lain", "Kebutuhan lainnya"); }],
     ["Ringkasan Estimasi", "Cek rincian sebelum mengirimkan kebutuhan Anda ke kami.", summary]
   ];
+  function stTr() {
+    return TRANSPORT.v.map(function (v, vi) {
+      var t = S.tr[v.id], o = trPrice(vi, t.sel);
+      var opt = '<optgroup label="Full trip">' + TRANSPORT.ft.map(function (f) { return '<option value="ft:' + f.id + '"' + (t.sel === "ft:" + f.id ? " selected" : "") + ">" + f.n + "</option>"; }).join("") +
+        '</optgroup><optgroup label="Per rute">' + TRANSPORT.r.map(function (r) { return '<option value="r:' + r.id + '"' + (t.sel === "r:" + r.id ? " selected" : "") + ">" + r.n + "</option>"; }).join("") + "</optgroup>";
+      return '<div class="trrow"><img src="' + v.img + '" alt="' + v.n + '"><div class="trinfo"><b>' + v.n + "</b><small>" + v.cap + '</small><select data-tr="' + v.id + '" aria-label="Rute ' + v.n + '">' + opt + "</select><small>" + sar(o.p) + " per kendaraan, sekitar " + rp(o.p * RATE) + "</small></div>" + stp("trq_" + v.id, t.q) + "</div>";
+    }).join("") + '<p class="tl">Jumlah 0 berarti kendaraan itu tidak dipilih. Full trip sudah termasuk ziarah Makkah dan Madinah.</p>';
+  }
   function hotelStep(c) {
     return '<div class="two"><label>Tipe kamar<select data-t="' + c + '">' + TYPES.map(function (x, i) { return '<option value="' + i + '"' + (S.type[c] === i ? " selected" : "") + ">" + x + " (" + OCC[i] + " orang)</option>"; }).join("") + '</select></label><div class="lb">Jumlah kamar' + stp("rooms" + c, roomsOf(c)) + '</div></div>' +
       '<div class="chips">' + [[0, "Semua"], [5, "5 bintang"], [4, "4 bintang"], [3, "3 bintang"]].map(function (x) { return '<button type="button" class="chip' + (S.star[c] === x[0] ? " on" : "") + '" data-star="' + x[0] + '" data-c="' + c + '">' + x[1] + "</button>"; }).join("") + '</div>' +
@@ -126,7 +141,8 @@
   st.addEventListener("input", function (e) { var q = e.target.dataset.q; if (q) { S.q[q] = e.target.value; drawList(q); } });
   st.addEventListener("change", function (e) {
     var t = e.target, k = t.dataset.k;
-    if (t.dataset.t) { S.type[t.dataset.t] = +t.value; S.rooms[t.dataset.t] = null; render(); }
+    if (t.dataset.tr) { S.tr[t.dataset.tr].sel = t.value; render(); }
+    else if (t.dataset.t) { S.type[t.dataset.t] = +t.value; S.rooms[t.dataset.t] = null; render(); }
     else if (k) { S[k] = t.type === "checkbox" ? t.checked : t.type === "number" ? (+t.value || 0) : t.value; render(); }
   });
   $("nx").onclick = function () { if (cur < STEPS.length - 1) { cur++; render(true); } };

@@ -239,3 +239,11 @@ nav .btn{padding:8px 14px;font-size:.82rem}
 
 /* layar 340px ke bawah: tampilkan logo tanpa tulisan agar menu muat */
 @media(max-width:340px){.logo span{display:none}}
+
+/* Langkah transportasi kalkulator */
+.trrow{display:grid;grid-template-columns:104px 1fr auto;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.trrow img{width:104px;height:68px;object-fit:contain;mix-blend-mode:multiply}
+.trinfo{display:grid;gap:5px;min-width:0}.trinfo b{display:block}.trinfo small{color:var(--mute);font-size:.8rem}
+.trinfo select{font-size:.84rem;padding:8px 10px}
+@media(max-width:560px){.trrow{grid-template-columns:76px 1fr}.trrow img{width:76px;height:52px}.trrow .stp{grid-column:1/-1;justify-self:end}}
+@media(max-width:560px){.dock b{font-size:1.15rem;white-space:nowrap}.dock small{font-size:.72rem}}
