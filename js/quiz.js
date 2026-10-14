@@ -1,7 +1,7 @@
 var WA="https://wa.me/6289624493600?text=";
 /* Peta Kesiapan */
 var Q=["Paspor Anda aktif minimal 6 bulan sebelum tanggal berangkat?","Anda sudah menentukan perkiraan tanggal dan lama perjalanan?","Anda sudah paham urutan umroh: ihram, tawaf, sa'i, tahallul?","Anda sudah punya gambaran anggaran perjalanan?","Anda nyaman mengatur hotel dan transportasi dengan pendampingan?"];
-var R=[["Mulai dari dasar","Tidak apa-apa. Mulai dari ilmunya dulu lewat kelas persiapan, lalu susun rencana pelan-pelan."],["Hampir siap","Fondasi Anda sudah ada. Beberapa hal perlu dirapikan sebelum memesan."],["Siap melangkah","Anda sudah di jalur yang tepat. Saatnya menghitung anggaran dan memastikan pemesanan."]];
+var R=[["Mulai dari dasar","Tidak apa-apa. Mulai dari ilmunya dulu lewat kelas persiapan, lalu susun rencana pelan-pelan."],["Hampir siap","Fondasi Anda sudah ada. Beberapa hal perlu dirapikan sebelum menyusun rencana."],["Siap melangkah","Anda sudah di jalur yang tepat. Saatnya menghitung anggaran dan menyusun rencana perjalanan Anda."]];
 var qi=0,sc=0,qe=document.getElementById("quiz");
 function drawQ(){
  if(qi<Q.length){
@@ -13,9 +13,6 @@ function drawQ(){
   document.getElementById("rs").onclick=function(){qi=0;sc=0;drawQ()};
  }
 }
-drawQ();
+if(qe)drawQ();
 /* Animasi muncul saat di-scroll */
 if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});document.querySelectorAll(".item,.steps li,.res,.cmpwrap,.tile,details,.cr,.phs,.tick").forEach(function(x){x.classList.add("rv");io.observe(x)})}
-
-/* Harga acuan di kartu layanan dibaca dari data/data.js */
-if(window.PRICE){var P=window.PRICE,T={tiket:"Harga acuan sekitar Rp"+Math.round(P.tiketRp/1e6)+" juta",visa:"Harga acuan USD "+P.visaUsd,hiace:"Mulai SAR "+(window.TRANSPORT?Math.min.apply(null,TRANSPORT.r.map(function(r){return Math.min.apply(null,r.p)})):250)+" per rute",mt:"Mulai SAR "+P.mtHalf+" per sesi",hand:"Mulai SAR "+Math.min(P.hin,P.hout)+" per orang"};document.querySelectorAll("[data-p]").forEach(function(e){if(T[e.dataset.p])e.textContent=T[e.dataset.p]})}

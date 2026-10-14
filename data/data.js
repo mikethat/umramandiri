@@ -1,5 +1,5 @@
 /*
-  SATU SUMBER DATA untuk seluruh website (marketplace, kalkulator, beranda).
+  SATU SUMBER DATA untuk kalkulator budget.
   Ubah angka di sini, lalu unggah ulang. Tidak perlu mengedit file lain.
 */
 var WA = "6289624493600";            // WhatsApp UmraMandiri

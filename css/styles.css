@@ -247,3 +247,32 @@ nav .btn{padding:8px 14px;font-size:.82rem}
 .trinfo select{font-size:.84rem;padding:8px 10px}
 @media(max-width:560px){.trrow{grid-template-columns:76px 1fr}.trrow img{width:76px;height:52px}.trrow .stp{grid-column:1/-1;justify-self:end}}
 @media(max-width:560px){.dock b{font-size:1.15rem;white-space:nowrap}.dock small{font-size:.72rem}}
+
+
+/* ===== Layanan tiga tingkat, profil ===== */
+.svc3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:10px;align-items:stretch}
+.svc3 .svc{padding:28px;cursor:default}
+.svc3 .svc:hover{transform:none;border-color:var(--line);box-shadow:none}
+.svc3 .svc.main:hover{border-color:var(--p)}
+.svc.main{border:2px solid var(--p);box-shadow:0 30px 50px -34px rgba(94,16,43,.6)}
+.price.pm{background:var(--p);color:#fff}
+.svc .sp{flex:none;font-size:.95rem}
+.ck1{list-style:none;margin:6px 0 22px;padding:0;display:grid;gap:9px;flex:1;align-content:start}
+.ck1 li{position:relative;padding-left:24px;font-size:.9rem;color:var(--ink);line-height:1.45}
+.ck1 li:before{content:"\2713";position:absolute;left:0;color:var(--p);font-weight:800}
+.svc .btn{align-self:flex-start}
+.scope{margin-top:28px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--p);border-radius:12px;padding:18px 22px}
+.scope b{display:block;margin-bottom:4px}.scope p{margin:0;font-size:.9rem}
+@media(max-width:980px){.svc3{grid-template-columns:minmax(0,1fr)}}
+
+.pf{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:center}
+.pf>*{min-width:0}
+.pfp{position:relative;margin:0;aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,var(--p),var(--pd));box-shadow:0 34px 60px -34px rgba(94,16,43,.6)}
+.pfp .mono{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:5rem;letter-spacing:-.04em;color:var(--sand)}
+.pfp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pn{color:var(--p);font-weight:700}.pn b{color:var(--ink)}
+.pfl{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pfl li{background:var(--off);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.pfl b{display:block;color:var(--p)}.pfl span{font-size:.85rem;color:var(--mute)}
+.pnow{font-size:.88rem;margin:18px 0 0}
+@media(max-width:860px){.pf{grid-template-columns:minmax(0,1fr)}.pfp{max-width:320px}.pfl{grid-template-columns:1fr}}
