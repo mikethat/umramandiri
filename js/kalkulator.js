@@ -86,7 +86,7 @@
     ["Handling dan Add On", "Handling dihitung per jamaah. Add on dikonfirmasi saat konsultasi.", function () {
       return chk("hin", "Handling kedatangan Jeddah (" + sar(HIN) + " per orang)") + chk("hout", "Handling kepulangan (" + sar(HOUT) + " per orang)") +
         '<p class="tl">Add on opsional, harga diberikan saat konsultasi:</p>' + chk("kereta", "Kereta cepat Haramain") + chk("lain", "Kebutuhan lainnya"); }],
-    ["Ringkasan Estimasi", "Cek rincian sebelum mengirimkan kebutuhan Anda ke kami.", summary]
+    ["Ringkasan Estimasi", "Cek rincian sebelum mengirimkan kebutuhan Anda kepada saya.", summary]
   ];
   function stTr() {
     return TRANSPORT.v.map(function (v, vi) {
@@ -120,7 +120,7 @@
       "<tr><td>Kamar</td><td>Makkah " + roomsOf("Makkah") + ", Madinah " + roomsOf("Madinah") + "</td></tr></table>" +
       '<h3 style="margin-top:22px">Rincian biaya</h3><table class="sumt">' + c.L.map(function (l) { return "<tr><td>" + l[0] + "</td><td>" + rp(l[1]) + "</td></tr>"; }).join("") + "</table>" +
       (c.miss.length ? '<p class="warn">' + c.miss.join(". ") + ".</p>" : "") +
-      '<div class="cta" style="margin-top:20px"><a class="btn" href="' + waLink(c) + '">Konsultasikan Estimasi</a><a class="btn ghost" href="index.html#layanan">Lihat layanan kami</a></div>';
+      '<div class="cta" style="margin-top:20px"><a class="btn" href="' + waLink(c) + '">Konsultasikan Estimasi</a><a class="btn ghost" href="index.html#layanan">Lihat layanan</a></div>';
   }
   /* ---- render ---- */
   function upd() { var c = calc(); $("dt1").textContent = rp(c.t); $("dt2").textContent = c.L.length ? rp(c.t / c.g) + " per jamaah" : "Pilih layanan untuk melihat estimasi"; $("dwa").href = waLink(c); }

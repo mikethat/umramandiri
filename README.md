@@ -4,7 +4,6 @@ Website statis (HTML, CSS, JavaScript) tanpa proses build. Siap di-deploy ke Git
 
 ## Struktur
 - `index.html` halaman utama
-- `ebook.html` halaman ebook (lead magnet gratis dan daftar tunggu ebook berbayar); formulir diatur di `js/lead.js`
 - `css/styles.css` tampilan
 - `js/quiz.js` Peta Kesiapan Umroh dan animasi
 - `kalkulator.html` kalkulator budget bertahap (10 langkah), logikanya di `js/kalkulator.js`
@@ -22,7 +21,7 @@ Semua angka ada di satu file: `data/data.js`.
 - Kurs: `RATE` dan `RATE_DATE`.
 - Harga non-hotel: objek `PRICE` (tiket, visa, Hiace, muthawwif, handling).
 - Tarif hotel: blok `HOTELS`. Format `Nama|bintang|ddmm-ddmm:double/triple/quad;...`. Menambah hotel: salin satu baris.
-- Nomor WhatsApp: `WA` (nomor di tautan tombol pada file HTML dan di `js/lead.js` masih perlu diganti manual).
+- Nomor WhatsApp: `WA` (nomor di tautan tombol pada file HTML masih perlu diganti manual).
 
 ## Foto profil
 Letakkan foto Anda di `assets/img/miqdad.jpg` (rasio 4:5, sisi panjang minimal 1000 px). Jika file belum ada, bagian profil menampilkan monogram MI secara otomatis.

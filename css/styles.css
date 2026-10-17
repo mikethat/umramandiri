@@ -276,3 +276,39 @@ nav .btn{padding:8px 14px;font-size:.82rem}
 .pfl b{display:block;color:var(--p)}.pfl span{font-size:.85rem;color:var(--mute)}
 .pnow{font-size:.88rem;margin:18px 0 0}
 @media(max-width:860px){.pf{grid-template-columns:minmax(0,1fr)}.pfp{max-width:320px}.pfl{grid-template-columns:1fr}}
+
+
+/* ===== Alur baru: strip kredibilitas, transparansi, tangga layanan ===== */
+.tstrip{padding:0 0 8px}
+.tstrip ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;transform:translateY(-6px)}
+.tstrip li{background:var(--off);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.tstrip b{display:block;color:var(--p)}.tstrip span{font-size:.84rem;color:var(--mute)}
+@media(max-width:860px){.tstrip ul{grid-template-columns:1fr 1fr}}
+.svc .more{margin-top:auto;color:var(--p);font-weight:700;font-size:.9rem}
+.svc .sp.nt,.svc .nt{font-size:.82rem;margin:0 0 16px;flex:none}
+
+.trn{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.trn>*{min-width:0}
+.eyebrow.w{color:var(--sand)}
+.ckw{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px}
+.ckw li{position:relative;padding-left:28px;color:#fff;font-size:.98rem}
+.ckw li:before{content:"\2713";position:absolute;left:0;color:var(--sand);font-weight:800}
+.mflow{display:grid;gap:22px}
+.mrow{display:grid;grid-template-columns:minmax(0,.7fr) auto minmax(0,1.3fr);align-items:center;gap:12px}
+.mn{background:#fff;color:var(--ink);border-radius:14px;padding:16px 18px;font-weight:700}
+.mn b{display:block}.mn small{display:block;color:var(--mute);font-weight:500;font-size:.8rem}
+.mn.me{background:var(--sand)}.mn.me small{color:var(--ink)}
+.ma{min-width:92px;text-align:center;font-size:.76rem;font-weight:700;color:var(--sand)}
+.ma span:after{content:" \2192"}
+@media(max-width:860px){.trn{grid-template-columns:minmax(0,1fr);gap:32px}.mrow{grid-template-columns:minmax(0,1fr);gap:6px}.ma{min-width:0;text-align:left;padding:2px 4px}.ma span:after{content:" \2193"}}
+
+.entry{display:flex;align-items:center;justify-content:space-between;gap:24px;background:var(--off);border:1px solid var(--line);border-radius:18px;padding:22px 26px;margin:0 0 18px}
+.entry h3{margin:0 0 4px}.entry p{margin:0;max-width:60ch}.entry .price{margin-bottom:8px}
+@media(max-width:760px){.entry{flex-direction:column;align-items:flex-start}}
+.pbox{margin:2px 0 14px}
+.pbox b{display:block;font-size:1.9rem;letter-spacing:-.03em;color:var(--p);line-height:1.1}
+.pbox span{display:block;font-size:.88rem;color:var(--ink);font-weight:600;margin-top:2px}
+.pbox small{display:block;font-size:.78rem;color:var(--mute);margin-top:8px;line-height:1.45}
+.eyebrow.w{background:rgba(255,255,255,.14);color:var(--sand)}
+.mrow{grid-template-columns:104px 132px minmax(0,1fr)}
+@media(max-width:860px){.mrow{grid-template-columns:minmax(0,1fr)}}
